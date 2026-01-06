@@ -1,6 +1,4 @@
-# PyTorch already in base image - don't install it!
-# torch
-# torchvision
+# torch and torchvision installed separately in Dockerfile with CPU-only version
 
 # Core AI packages
 transformers>=4.37.0
