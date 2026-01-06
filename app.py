@@ -156,14 +156,26 @@ def prepare_html(filename):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
+    # Fix CSS filename typo
     content = content.replace('styles.css', 'style.css')
-    content = content.replace('href="../css/', 'href="/static/css/')
-    content = content.replace('href="css/', 'href="/static/css/')
-    content = content.replace('src="../img/', 'src="/static/img/')
-    content = content.replace('src="img/', 'src="/static/img/')
+    
+    # Fix icon paths (IMPORTANT - must come before other image replacements)
     content = content.replace('href="../img/', 'href="/static/img/')
     content = content.replace('href="img/', 'href="/static/img/')
+    
+    # Fix CSS paths
+    content = content.replace('href="../css/', 'href="/static/css/')
+    content = content.replace('href="css/', 'href="/static/css/')
+    
+    # Fix image src paths
+    content = content.replace('src="../img/', 'src="/static/img/')
+    content = content.replace('src="img/', 'src="/static/img/')
+    
+    # Fix JS paths
+    content = content.replace('src="../js/', 'src="/static/js/')
+    content = content.replace('src="js/', 'src="/static/js/')
 
+    # Fix page navigation links
     url_map = {
         "index.html": "/", "products.html": "/products", "solutions.html": "/solutions",
         "research.html": "/research", "price.html": "/price", "contact.html": "/contact",
@@ -181,8 +193,17 @@ def prepare_html(filename):
 # --- 6. GRADIO INTERFACE ---
 custom_css = """
 footer { visibility: hidden !important; }
-.gradio-container { background-color: #0b0b0f !important; margin: 0 !important; max-width: 100% !important; min-height: 100vh; }
-#tool-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+.gradio-container { 
+    background-color: #0b0b0f !important; 
+    margin: 0 !important; 
+    max-width: 100% !important; 
+    min-height: 100vh; 
+}
+#tool-container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 40px 20px; 
+}
 #analysis-output textarea {
     background-color: #e5e7eb !important; 
     color: #555555 !important; 
@@ -196,16 +217,60 @@ footer { visibility: hidden !important; }
     text-align: center !important; 
     padding-top: 120px !important; 
 }
-label span { color: #9ca3af !important; font-weight: bold; }
-.tool-header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #27272a; }
-.tool-logo-text { font-size: 2.5rem; font-weight: 700; color: white; letter-spacing: -1px; }
-.tool-logo-text span { color: #0262F2; }
-.tool-tagline { color: #9ca3af; font-size: 1rem; margin-top: 5px; }
-button.primary { background-color: #0262F2 !important; color: white !important; border: none !important; font-weight: 600 !important; }
-h1, h2 { color: white !important; font-family: sans-serif; }
+label span { 
+    color: #9ca3af !important; 
+    font-weight: bold; 
+}
+.tool-header { 
+    text-align: center; 
+    margin-bottom: 40px; 
+    padding-bottom: 20px; 
+    border-bottom: 1px solid #27272a; 
+}
+.tool-logo-text { 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    color: white; 
+    letter-spacing: -1px; 
+}
+.tool-logo-text span { 
+    color: #0262F2; 
+}
+.tool-tagline { 
+    color: #9ca3af; 
+    font-size: 1rem; 
+    margin-top: 5px; 
+}
+button.primary { 
+    background-color: #0262F2 !important; 
+    color: white !important; 
+    border: none !important; 
+    font-weight: 600 !important; 
+}
+h1, h2 { 
+    color: white !important; 
+    font-family: sans-serif; 
+}
+/* Force dark background on everything */
+.gradio-container, .gradio-container * {
+    background-color: #0b0b0f !important;
+}
+/* But keep interactive elements readable */
+input, textarea, button, select {
+    background-color: #15151a !important;
+    color: white !important;
+    border-color: #27272a !important;
+}
+/* Fix image upload area */
+.upload-container {
+    background-color: #15151a !important;
+}
 """
 
-with gr.Blocks(title="Noval AI Tool", css=custom_css, theme=None) as demo:
+with gr.Blocks(title="Noval AI Tool") as demo:
+    # Inject CSS via HTML (Gradio 6 compatible)
+    gr.HTML(f"<style>{custom_css}</style>")
+    
     gr.HTML('<div style="padding: 20px;"><a href="/" style="color: #9ca3af; text-decoration: none; font-family: sans-serif;">&larr; Back to Website</a></div>')
 
     with gr.Group(elem_id="tool-container"):
