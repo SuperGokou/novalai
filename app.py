@@ -190,61 +190,15 @@ def prepare_html(filename):
     return content
 
 
-# --- 6. GRADIO INTERFACE ---
+# --- 6. GRADIO INTERFACE (THE TOOL) ---
 custom_css = """
-/* Force dark theme on everything */
-body, html {
-    background-color: #0b0b0f !important;
-}
+footer { visibility: hidden !important; }
+.gradio-container { background-color: #0b0b0f !important; margin: 0 !important; max-width: 100% !important; min-height: 100vh; }
+#tool-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-footer { 
-    visibility: hidden !important; 
-}
+/* White Background for Output Box */
 
-.gradio-container,
-.gradio-container *,
-.contain,
-.prose,
-div[class*="block"],
-div[class*="container"] { 
-    background-color: #0b0b0f !important; 
-}
-
-.gradio-container { 
-    margin: 0 !important; 
-    max-width: 100% !important; 
-    min-height: 100vh !important;
-}
-
-#tool-container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 40px 20px; 
-    background-color: #0b0b0f !important;
-}
-
-/* Upload area - make it dark */
-.upload-container,
-div[data-testid="image"],
-.image-container,
-.drop-area {
-    background-color: #15151a !important;
-    border: 2px dashed #27272a !important;
-}
-
-/* Labels and text */
-label, label span, .label, h1, h2, h3, p { 
-    color: #9ca3af !important; 
-    font-weight: bold; 
-}
-
-h1, h2 { 
-    color: white !important; 
-    font-family: sans-serif; 
-}
-
-/* Fine-tuning parameters box */
-#analysis-output,
+/* FIX: COMPLETELY LOCK THE TEXTBOX RESIZING */
 #analysis-output textarea {
     background-color: #e5e7eb !important; 
     color: #555555 !important; 
@@ -255,64 +209,24 @@ h1, h2 {
     resize: none !important;
     min-height: 300px !important;
     max-height: 300px !important;
-    text-align: center !important; 
-    padding-top: 120px !important; 
+    text-align: center !important; /* Centers the locked message */
+    padding-top: 120px !important; /* Pushes text to middle vertically */
 }
 
-/* Button styling */
-button,
-.primary,
-button[variant="primary"] { 
-    background-color: #0262F2 !important; 
-    color: white !important; 
-    border: none !important; 
-    font-weight: 600 !important; 
-}
+/* Label Styling */
+label span { color: #9ca3af !important; font-weight: bold; }
 
-button:hover {
-    opacity: 0.9 !important;
-}
+/* Header Styles */
+.tool-header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #27272a; }
+.tool-logo-text { font-size: 2.5rem; font-weight: 700; color: white; letter-spacing: -1px; }
+.tool-logo-text span { color: #0262F2; }
+.tool-tagline { color: #9ca3af; font-size: 1rem; margin-top: 5px; }
 
-/* Header */
-.tool-header { 
-    text-align: center; 
-    margin-bottom: 40px; 
-    padding-bottom: 20px; 
-    border-bottom: 1px solid #27272a; 
-    background-color: #0b0b0f !important;
-}
-
-.tool-logo-text { 
-    font-size: 2.5rem; 
-    font-weight: 700; 
-    color: white !important; 
-    letter-spacing: -1px; 
-}
-
-.tool-logo-text span { 
-    color: #0262F2 !important; 
-}
-
-.tool-tagline { 
-    color: #9ca3af !important; 
-    font-size: 1rem; 
-    margin-top: 5px; 
-}
-
-/* Input fields */
-input, textarea, select {
-    background-color: #15151a !important;
-    color: white !important;
-    border: 1px solid #27272a !important;
-}
-
-/* File download area */
-.file-preview,
-.file-upload {
-    background-color: #15151a !important;
-    border: 1px solid #27272a !important;
-}
+/* Button Style */
+button.primary { background-color: #0262F2 !important; color: white !important; border: none !important; font-weight: 600 !important; }
+h1, h2 { color: white !important; font-family: sans-serif; }
 """
+
 
 with gr.Blocks(title="Noval AI Tool") as demo:
     # Inject CSS via HTML (Gradio 6 compatible)
