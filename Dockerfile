@@ -8,6 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
@@ -16,14 +17,19 @@ COPY requirements.txt .
 # Install Python packages (torch already in base image)
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Set Hugging Face cache to app directory (for persistence)
+ENV HF_HOME=/app/.cache
+ENV TRANSFORMERS_CACHE=/app/.cache
+
 # Copy application files
+# Model will download at runtime (not during build)
 COPY . .
 
 # Expose port
 EXPOSE 7860
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=180s \
     CMD curl -f http://localhost:7860/ || exit 1
 
 # Start command
