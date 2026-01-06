@@ -1,7 +1,6 @@
-# Use PyTorch base image (has PyTorch pre-installed)
-FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+# Use slim Python instead of PyTorch base
+FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
 # Install system dependencies
@@ -11,26 +10,23 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements file
+# Copy requirements
 COPY requirements.txt .
 
-# Install Python packages (torch already in base image)
+# Install CPU-only PyTorch (200MB vs 2GB for CUDA)
+RUN pip install --no-cache-dir \
+    torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# Install other dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set Hugging Face cache to app directory (for persistence)
+# Set cache directories
 ENV HF_HOME=/app/.cache
 ENV TRANSFORMERS_CACHE=/app/.cache
 
-# Copy application files
-# Model will download at runtime (not during build)
+# Copy application
 COPY . .
 
-# Expose port
 EXPOSE 7860
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=180s \
-    CMD curl -f http://localhost:7860/ || exit 1
-
-# Start command
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
