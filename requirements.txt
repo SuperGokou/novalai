@@ -1,23 +1,23 @@
-# Core AI & Deep Learning
-torch>=2.1.0
-torchvision
+# PyTorch already in base image - don't install it!
+# torch
+# torchvision
+
+# Core AI packages
 transformers>=4.37.0
 accelerate>=0.27.0
 peft>=0.10.0
-
-# Qwen-VL Specific
 qwen-vl-utils
 
-# Web Framework
+# Web framework
 fastapi>=0.110.0
-uvicorn>=0.28.0
+uvicorn[standard]>=0.28.0
 python-multipart
 
-# UI Framework
+# UI
 gradio>=6.0.0
 
-# PDF Generation
+# PDF generation
 reportlab>=4.0.0
 
-# Image Processing
+# Image processing
 pillow>=10.0.0
