@@ -1,20 +1,12 @@
-# --- Core AI & Model ---
-torch>=2.1.0                # PyTorch backend for deep learning
-transformers>=4.37.0        # Hugging Face Transformers (Required for Qwen2.5)
-peft                        # Parameter-Efficient Fine-Tuning (for loading your LoRA adapter)
-accelerate                  # Required for device_map="auto" (GPU offloading)
-qwen-vl-utils               # Specific utilities for handling Qwen-VL inputs
-
-# --- Optimization (Optional but Recommended) ---
-bitsandbytes                # For 4-bit/8-bit quantization (saves GPU VRAM)
-scipy                       # Often required by transformers for specific layers
-
-# --- Web Server & UI ---
-fastapi                     # The backend framework serving the website
-uvicorn                     # The ASGI server to run FastAPI
-gradio>=4.0.0               # The interactive AI tool interface
-
-# --- Utilities ---
-reportlab                   # Generates the PDF reports
-pillow                      # Image processing (PIL)
-python-multipart            # Required by FastAPI for file uploads
+torch>=2.1.0,<2.6.0
+torchvision>=0.16.0
+transformers>=4.37.0
+accelerate>=0.27.0
+peft>=0.10.0
+qwen-vl-utils
+gradio>=6.0.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
+reportlab>=4.0.0
+pillow>=10.0.0
+python-multipart
