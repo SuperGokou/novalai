@@ -359,6 +359,23 @@ with gr.Blocks(title="Noval AI Tool") as demo:
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="."), name="static")
 
+
+@app.get("/favicon.ico")
+async def favicon():
+    """Serve favicon - browsers automatically request this"""
+    favicon_path = "img/OIP.png"
+    if os.path.exists(favicon_path):
+        from fastapi.responses import FileResponse
+        return FileResponse(
+            favicon_path, 
+            media_type="image/png",
+            headers={"Cache-Control": "public, max-age=3600"}  # Cache for 1 hour
+        )
+    # Fallback: return empty response if not found
+    from fastapi.responses import Response
+    return Response(status_code=204)  # No Content
+
+
 @app.get("/", response_class=HTMLResponse)
 async def home(): return prepare_html("index.html")
 
