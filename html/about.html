@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About - Noval AI</title>
+    <link rel="icon" href="../img/OIP.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+
+        /* Hero Text */
+        .about-hero {
+            padding: 120px 20px 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            padding: 0 20px;
+            align-items: center;
+        }
+        @media (max-width: 900px) { .mission-section { grid-template-columns: 1fr; } }
+
+        .mission-text h2 { font-size: 2.5rem; color: white; margin-bottom: 20px; }
+        .mission-text p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+
+        .mission-visual {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(2, 98, 242, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 60px 0;
+            margin-bottom: 120px;
+            background: rgba(255,255,255,0.02);
+        }
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            text-align: center;
+        }
+        .stat-item h3 { font-size: 3.5rem; font-weight: 800; color: white; margin: 0; line-height: 1; }
+        .stat-item p { color: var(--accent); margin-top: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+
+        /* Team Grid */
+        .team-section {
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.2s;
+        }
+        .team-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .member-img {
+            width: 100px;
+            height: 100px;
+            background: #27272a;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .member-name { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+        .member-role { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; }
+        .member-bio { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="../index.html" class="logo">noval<span>.ai</span></a>
+        <div class="nav-links">
+            <a href="products.html">Products</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="research.html">Research</a>
+            <a href="about.html" style="color:white;">About</a>
+            <a href="price.html">Pricing</a>
+        </div>
+    </nav>
+
+    <div class="about-hero">
+        <h1 class="heading-hero">Powering the Industrial AI Revolution</h1>
+        <p class="text-size-large">
+            We build the brain for the world's machines. Noval AI connects state-of-the-art generative models to the physical reality of manufacturing.
+        </p>
+    </div>
+
+    <div class="mission-section">
+        <div class="mission-text">
+            <h2>Our Mission</h2>
+            <p>
+                Manufacturing generates more data than any other industry, yet 90% of it goes unused. We are changing that.
+            </p>
+            <p>
+                By fine-tuning Large Multimodal Models (LMMs) on proprietary industrial data, we enable factories to automate complex visual tasks, predict failures before they happen, and optimize production lines autonomously.
+            </p>
+            <p>
+                We believe the future of making things is intelligent, autonomous, and self-correcting.
+            </p>
+        </div>
+        <div class="mission-visual">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#0262F2" stroke-width="1">
+                <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                <path d="M12 12L2.5 10a10 10 0 0 1 8-8V12z"></path>
+                <path d="M12 12l9.5-2A10 10 0 0 1 12 22V12z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>50M+</h3>
+                <p>Images Processed</p>
+            </div>
+            <div class="stat-item">
+                <h3>99.9%</h3>
+                <p>Accuracy Rate</p>
+            </div>
+            <div class="stat-item">
+                <h3>200+</h3>
+                <p>Factories Deployed</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Autonomous Uptime</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-section">
+        <h2 class="heading-section">Meet the Builders</h2>
+        <p class="text-size-large" style="margin-bottom: 40px;">
+            A team of researchers, engineers, and manufacturing veterans.
+        </p>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="member-img">👨‍💻</div>
+                <div class="member-name">Alex Chen</div>
+                <div class="member-role">Founder & CEO</div>
+                <p class="member-bio">Ex-Google Brain. PhD in Computer Vision. Leading the vision for industrial autonomy.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="member-img">👩‍🔬</div>
+                <div class="member-name">Sarah Miller</div>
+                <div class="member-role">Head of Research</div>
+                <p class="member-bio">Pioneer in efficient fine-tuning methods (LoRA). Focused on adapting LLMs for edge devices.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="member-img">👷‍♂️</div>
+                <div class="member-name">David Ross</div>
+                <div class="member-role">VP of Engineering</div>
+                <p class="member-bio">20 years in automotive manufacturing automation. Bridging the gap between software and hardware.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="member-img">🚀</div>
+                <div class="member-name">Join Us</div>
+                <div class="member-role">We are hiring</div>
+                <p class="member-bio">Help us build the future of manufacturing. Check our careers page for open roles.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Ready to transform your factory?</h2>
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-primary">Partner with Us</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="products.html">Model Library</a></li>
+                    <li><a href="products.html">Inference</a></li>
+                    <li><a href="products.html">Fine-Tuning</a></li>
+                    <li><a href="products.html">GPU Clusters</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="solutions.html">Manufacturing</a></li>
+                    <li><a href="solutions.html">Healthcare</a></li>
+                    <li><a href="solutions.html">Automotive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Trust Center</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-brand-group">
+                <a href="index.html" class="logo" style="text-decoration:none;">noval<span>.ai</span></a>
+                <p>The AI Cloud for Manufacturing.</p>
+                <div class="copyright">&copy; 2025 Noval AI. San Francisco, CA 94114.</div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Consent Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

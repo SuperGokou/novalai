@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pricing - Noval AI</title>
+    <link rel="icon" href="img/OIP.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg-color: #0b0b0f;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #0262F2;
+            --card-bg: #15151a;
+            --border: #27272a;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; margin: 0; }
+        * { box-sizing: border-box; }
+
+        /* --- NAVBAR --- */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11, 11, 15, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 30px; font-size: 0.95rem; color: var(--text-secondary); }
+        .nav-links a:hover { color: white; transition: color 0.2s; }
+
+        /* --- HERO --- */
+        .hero-section {
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+        .heading-hero {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-size-large { font-size: 1.2rem; color: var(--text-secondary); }
+
+        /* --- PRICING GRID --- */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 100px;
+            padding: 0 20px;
+            align-items: flex-start;
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            position: relative;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* Featured Card Style */
+        .price-card.featured {
+            border: 1px solid var(--accent);
+            background: linear-gradient(180deg, rgba(2, 98, 242, 0.05) 0%, var(--card-bg) 100%);
+            box-shadow: 0 0 30px rgba(2, 98, 242, 0.1);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .price-header h3 { margin: 0 0 5px 0; font-size: 1.5rem; color: white; }
+        .price-header p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 5px;
+        }
+        .price-amount span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* --- BUTTON STYLES --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: black;
+            border: 2px solid white;
+        }
+        .btn-primary:hover { opacity: 0.8; }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 3px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: white; background-color: rgba(255,255,255,0.1); }
+
+        .full-width {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        /* --- FEATURES LIST --- */
+        .price-features p { font-weight: bold; color: white; margin-bottom: 15px; }
+        .price-features ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .price-features li {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-features li::before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* --- FAQ --- */
+        .faq-section { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; } }
+        .heading-section { font-size: 2.5rem; font-weight: 700; margin-bottom: 40px; text-align: center; }
+        .faq-item h4 { color: white; margin-bottom: 10px; font-size: 1.1rem; }
+        .faq-item p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- FOOTER --- */
+        .footer { border-top: 1px solid var(--border); padding: 80px 40px 40px; background: #08080a; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto 60px; }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        .footer-col h4 { color: white; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--text-secondary); transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--accent); }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid #222; padding-top: 40px; display: flex; justify-content: space-between; color: #555; font-size: 0.85rem; flex-wrap: wrap; gap: 30px; align-items: flex-end; }
+        .footer-brand-group .logo { font-size: 1.5rem; color: white; margin: 0; }
+        .footer-brand-group p { color: var(--text-secondary); margin: 0; font-size: 0.95rem; }
+        .footer-brand-group .copyright { margin-top: 10px; color: #555; font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="logo">noval<span>.ai</span></a>
+        <div class="nav-links">
+            <a href="products.html">Products</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="research.html">Research</a>
+            <a href="price.html" style="color:white;">Pricing</a>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1 class="heading-hero">Transparent pricing for every scale</h1>
+        <p class="text-size-large">Industrial-grade AI infrastructure, predictable annual billing.</p>
+    </div>
+
+    <div class="pricing-container">
+        
+        <div class="price-card">
+            <div class="price-header">
+                <h3>Developer</h3>
+                <p>For piloting manufacturing AI models</p>
+            </div>
+            <div class="price-amount">$12,999<span>/yr</span></div>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">Billed annually</p>
+            
+            <a href="#" class="btn btn-secondary full-width">Start Building</a>
+            
+            <div class="price-features">
+                <p>Includes:</p>
+                <ul>
+                    <li>Access to Private Models</li>
+                    <li>Standard Support SLA</li>
+                    <li>Shared GPU Inference Cluster</li>
+                    <li>1 Fine-tuning job concurrent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="price-card featured">
+            <div class="popular-badge">Most Popular</div>
+            <div class="price-header">
+                <h3>Production</h3>
+                <p>For deploying AI to factory lines</p>
+            </div>
+            <div class="price-amount">$29,999<span>/yr</span></div>
+            <p style="color:white; font-size:0.9rem; margin-bottom:20px; opacity:0.8;">Billed annually</p>
+            
+            <a href="#" class="btn btn-primary full-width">Get Started</a>
+            
+            <div class="price-features">
+                <p>Everything in Developer, plus:</p>
+                <ul>
+                    <li>Private Fine-Tuning Storage</li>
+                    <li>High Rate Limits (RPM/TPM)</li>
+                    <li>Priority Customer Support</li>
+                    <li>3 Fine-tuning jobs concurrent</li>
+                    <li>Zero-retention data policy</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="price-card">
+            <div class="price-header">
+                <h3>Enterprise</h3>
+                <p>For large-scale multi-site deployment</p>
+            </div>
+            <div class="price-amount">Custom</div>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">Contact us for volume licensing</p>
+            
+            <a href="contact.html" class="btn btn-secondary full-width">Contact Sales</a>
+            
+            <div class="price-features">
+                <p>Everything in Production, plus:</p>
+                <ul>
+                    <li>Dedicated GPU Clusters (H100/A100)</li>
+                    <li>On-premise / VPC Deployment</li>
+                    <li>99.99% Uptime SLA</li>
+                    <li>Dedicated Solutions Engineer</li>
+                    <li>SSO & Compliance Logs</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="faq-section">
+        <h2 class="heading-section">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>What does the annual fee cover?</h4>
+                <p>The annual fee covers access to our proprietary fine-tuning platform, hosting costs for your models, and standard support tiers.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I deploy on my own servers?</h4>
+                <p>Yes, the Enterprise plan supports on-premise deployment or VPC peering for maximum security within your firewall.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do you offer Proof of Concept (PoC) trials?</h4>
+                <p>Yes, for qualified manufacturing partners, we offer a 30-day piloted PoC. Contact sales to apply.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How are compute credits handled?</h4>
+                <p>Each annual plan includes a set amount of GPU compute hours. Additional hours are billed at a discounted rate based on your tier.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="products.html">Model Library</a></li>
+                    <li><a href="products.html">Inference</a></li>
+                    <li><a href="products.html">Fine-Tuning</a></li>
+                    <li><a href="products.html">GPU Clusters</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="solutions.html">Manufacturing</a></li>
+                    <li><a href="solutions.html">Healthcare</a></li>
+                    <li><a href="solutions.html">Automotive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Trust Center</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-brand-group">
+                <a href="index.html" class="logo" style="text-decoration:none;">noval<span>.ai</span></a>
+                <p>The AI Cloud for Manufacturing.</p>
+                <div class="copyright">&copy; 2025 Noval AI. San Francisco, CA 94114.</div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Consent Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

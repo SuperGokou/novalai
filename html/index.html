@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noval AI - The Platform for Manufacturing Intelligence</title>
+    <link rel="icon" href="img/OIP.png" type="image/png">
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg-color: #0b0b0f;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #0262F2;
+            --accent-glow: rgba(2, 98, 242, 0.15);
+            --card-bg: #15151a;
+            --border: #27272a;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* --- UTILITY CLASSES --- */
+        .flex-center { display: flex; justify-content: center; text-align: center; }
+        .max-width-632 { max-width: 632px; width: 100%; }
+        .margin-bottom { margin-bottom: 20px; }
+        .margin-medium { margin-bottom: 16px; }
+        .margin-medium-2 { margin-bottom: 32px; }
+        .text-size-large { font-size: 1.25rem; line-height: 1.6; color: var(--text-secondary); }
+        .text-size-medium { font-size: 1rem; line-height: 1.6; color: var(--text-secondary); }
+        
+        .heading-hero {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heading-section { 
+            font-size: 3rem; 
+            font-weight: 700; 
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+        }
+        
+        .heading-section span { color: var(--accent); }
+
+        /* --- NAVBAR --- */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11, 11, 15, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 30px; font-size: 0.95rem; color: var(--text-secondary); }
+        .nav-links a:hover { color: white; transition: color 0.2s; }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            padding: 80px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* --- LOGO MARQUEE (Integrated Style) --- */
+        .container-large-tkc {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 0;
+            overflow: hidden;
+        }
+        .hp_hero-logo-wrap {
+            position: relative;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .hp_hero-logos {
+            display: flex;
+            overflow: hidden;
+        }
+        .hp_hero-logos_list {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            animation: scroll 40s linear infinite;
+            width: max-content;
+        }
+        .hp_hero-logos_logo {
+            height: 80px;
+            opacity: 0.6;
+            filter: invert(1); /* Invert black logos to white */
+            transition: opacity 0.3s;
+        }
+        .hp_hero-logos_logo:hover { opacity: 1; }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- TOP 3 CARDS GRID --- */
+        .top-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .feature-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .feature-card h3 { font-size: 1.5rem; margin: 0 0 10px 0; color: white; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        /* List Styling inside Cards */
+        .feature-card ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 10px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        .feature-card li { margin-bottom: 8px; }
+
+        /* --- INTERMEDIATE SECTION (Quality Prototypes) --- */
+        .quality-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .quality-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .quality-sub { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px; }
+        
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border: 1px solid #166534;
+            background: #052e16;
+            color: #4ade80;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* --- PLATFORM SECTION --- */
+        .platform-section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .clusters_list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            text-align: left;
+        }
+        @media (max-width: 900px) { .clusters_list { grid-template-columns: 1fr; } }
+        .icon-embed-xlarge { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
+
+        /* --- FULL STACK & MODELS --- */
+        .full-stack-container { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); padding: 80px 20px; }
+        .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        @media (max-width: 900px) { .stack-grid { grid-template-columns: 1fr; } }
+        .stack-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 30px 20px; cursor: pointer; transition: all 0.2s; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .stack-card:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
+        .stack-icon { width: 40px; height: 40px; margin-bottom: 15px; color: var(--accent); }
+        
+        .models-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .models-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+        @media (max-width: 768px) { .models-grid { grid-template-columns: 1fr; } }
+        .model-tag { background: #1a1a20; border: 1px solid #333; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; color: #d1d5db; }
+        .model-tag span.new { background: var(--accent); color: white; font-size: 0.7rem; padding: 4px 10px; border-radius: 10px; font-weight: bold; }
+
+        /* --- RESEARCH SECTION (Blue Dot Style) --- */
+        .research-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
+        .research-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; 
+            margin-top: 50px; 
+        }
+        @media (max-width: 900px) { .research-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .research-grid { grid-template-columns: 1fr; } }
+        
+        .research-card { 
+            background: white; /* Matching reference image style */
+            color: #111;
+            border: 1px solid #e5e7eb; 
+            padding: 30px 25px; 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s; 
+            cursor: pointer;
+            position: relative;
+            min-height: 120px;
+        }
+        .research-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        /* The Blue Dot */
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 8px;
+            height: 8px;
+            background-color: #0262F2;
+            border-radius: 50%;
+        }
+
+        /* --- FOOTER (Matching Contact.html) --- */
+        .footer { border-top: 1px solid var(--border); padding: 80px 40px 40px; background: #08080a; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto 60px; }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .footer-col h4 { color: white; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--text-secondary); transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--accent); }
+        
+        .footer-bottom { 
+            max-width: 1200px; margin: 0 auto; border-top: 1px solid #222; padding-top: 40px; 
+            display: flex; justify-content: space-between; color: #555; font-size: 0.85rem; 
+            flex-wrap: wrap; gap: 30px; align-items: flex-end; 
+        }
+        .footer-brand-group .logo { font-size: 1.5rem; color: white; margin: 0; }
+        .footer-brand-group p { color: var(--text-secondary); margin: 0; font-size: 0.95rem; }
+        .footer-brand-group .copyright { margin-top: 10px; color: #555; font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="logo">noval<span>.ai</span></a>
+        <div class="nav-links">
+            <a href="products.html">Products</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="research.html">Research</a>
+            <a href="price.html">Pricing</a>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1 class="heading-hero">Build on the AI Native Cloud</h1>
+        <p class="text-size-large">Engineered for AI natives, powered by cutting-edge research.</p>
+    </div>
+
+
+<div class="top-cards-grid">
+    <a href="/tool" class="feature-card" style="text-decoration: none;">
+        <div>
+            <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <h3>Fine-Tuning</h3>
+            <ul style="list-style-type: disc; padding-left: 20px; margin: 10px 0; color: var(--text-secondary); font-size: 0.95rem; text-align: left;">
+                <li>Adapt massive LLMs to factory data</li>
+                <li>Secure training on your own factory</li>
+                <li>Achieve 99% accuracy on niche industrial tasks</li>
+            </ul>
+        </div>
+        <span style="color:var(--accent); font-weight:bold; margin-top: 15px; display:block;">Try the Tool &rarr;</span>
+    </a>
+
+    <a href="https://www.hubs.com/manufacture/?technology=cnc-machining" class="feature-card">
+        <div>
+            <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <h3>Prototype to Production</h3>
+            <ul style="list-style-type: disc; padding-left: 20px; margin: 10px 0; color: var(--text-secondary); font-size: 0.95rem; text-align: left;">
+                <li>From prototype parts to production runs</li>
+                <li>Instant quoting with free design analysis</li>
+                <li>100+ combinations of materials & surface finishes</li>
+            </ul>
+        </div>
+        <span style="color:var(--accent); font-weight:bold; margin-top: 15px; display:block;">Get Instant Quote &rarr;</span>
+    </a>
+
+    <a href="price.html" class="feature-card">
+        <div>
+            <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3>Pricing</h3>
+            <ul style="list-style-type: disc; padding-left: 20px; margin: 10px 0; color: var(--text-secondary); font-size: 0.95rem; text-align: left;">
+                <li>Transparent pricing for every scale</li>
+                <li>Start building now with free quotes</li>
+                <li>Flexible Pay-as-you-go & Enterprise plans</li>
+            </ul>
+        </div>
+        <span style="color:var(--accent); font-weight:bold; margin-top: 15px; display:block;">View Plans &rarr;</span>
+    </a>
+</div>
+	
+	    <div class="container-large-tkc">
+        <div class="hp_hero-logo-wrap">
+            <div class="hp_hero-logos">
+                <div class="hp_hero-logos_list">
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/68dfd0e86816931539f4ab8c_cursor_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/68dfd0f39e516467085661b2_decagon_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f90a61db3a8f7311920b_zoom_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f902545fa1f7dc84873d_wp_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cc00b0ab1291319ad775e_salesforce_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cbe26791e7d7225fda1cd_mozilla_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f9344ebb18c33a45c976_duck_black.png" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cbe3fcf1029ebaaf21757_cognition_black.svg" class="hp_hero-logos_logo"></div>
+                    
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/68dfd0e86816931539f4ab8c_cursor_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/68dfd0f39e516467085661b2_decagon_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f90a61db3a8f7311920b_zoom_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f902545fa1f7dc84873d_wp_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cc00b0ab1291319ad775e_salesforce_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cbe26791e7d7225fda1cd_mozilla_black.svg" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/6889f9344ebb18c33a45c976_duck_black.png" class="hp_hero-logos_logo"></div>
+                    <div class="hp_hero-logos_item"><img src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/688cbe3fcf1029ebaaf21757_cognition_black.svg" class="hp_hero-logos_logo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="platform-section">
+        <div class="flex-center">
+            <div class="max-width-632">
+                <h2 class="heading-section">The Noval AI Platform</h2>
+                <div class="margin-bottom margin-medium-2">
+                    <p class="text-size-large">Accelerate training, fine-tuning and inference on performance-optimized GPU clusters</p>
+                </div>
+            </div>
+        </div>
+        
+        <ul role="list" class="clusters_list">
+            <li>
+                <div class="clusters_list-item">
+                    <div class="margin-bottom margin-medium">
+                        <div class="icon-embed-xlarge w-embed">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                              <g clip-path="url(#clip0_11303_5932)">
+                                <path d="M25.67 31.1504H4.53C2.85658 31.1504 1.5 32.507 1.5 34.1804V55.3204C1.5 56.9938 2.85658 58.3504 4.53 58.3504H25.67C27.3434 58.3504 28.7 56.9938 28.7 55.3204V34.1804C28.7 32.507 27.3434 31.1504 25.67 31.1504Z" stroke="#0262F2" stroke-width="2.13" stroke-miterlimit="10" stroke-linecap="round"></path>
+                                <path d="M11.76 31.1504V6.86039C11.76 3.98039 14.09 1.65039 16.97 1.65039H53.29C56.17 1.65039 58.5 3.98039 58.5 6.86039V43.1804C58.5 46.0604 56.17 48.3904 53.29 48.3904H28.7" stroke="#0262F2" stroke-width="2.13" stroke-miterlimit="10" stroke-linecap="round"></path>
+                                <path d="M36.21 12.2695H48.22V24.2795" stroke="#0262F2" stroke-width="2.13" stroke-miterlimit="10" stroke-linecap="round"></path>
+                                <path d="M48.22 12.2695L34.21 26.2795" stroke="#0262F2" stroke-width="2.13" stroke-miterlimit="10" stroke-linecap="round"></path>
+                              </g>
+                              <defs><clipPath id="clip0_11303_5932"><rect width="60" height="60" fill="white"></rect></clipPath></defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="margin-bottom margin-medium">
+                        <h3 class="text-size-large" style="color:white; font-weight:bold;">Reliable at production scale</h3>
+                    </div>
+                    <p class="text-size-medium">Built for scale, with customers going to trillions of tokens in a matter of hours without any depletion in experience.</p>
+                </div>
+            </li>
+            <li>
+                <div class="clusters_list-item">
+                    <div class="margin-bottom margin-medium">
+                        <div class="icon-embed-xlarge w-embed">
+                            <svg width="60" height="63" viewBox="0 0 60 63" fill="none">
+                              <path d="M21.8975 13.4635H8.43402V0H10.8659V11.0317H21.8975V13.4635Z" fill="#0262F2"></path>
+                              <path d="M30 62.5977C13.4635 62.5977 0 49.1452 0 32.5977H2.43185C2.43185 47.7966 14.801 60.1658 30 60.1658C45.199 60.1658 57.5682 47.7966 57.5682 32.5977C57.5682 17.3987 45.199 5.0295 30 5.0295C22.6382 5.0295 15.7185 7.89242 10.5122 13.0988L8.78778 11.3854C14.4584 5.71484 21.986 2.59766 30 2.59766C46.5365 2.59766 60 16.0501 60 32.5977C60 49.1452 46.5475 62.5977 30 62.5977Z" fill="#0262F2"></path>
+                              <path d="M29.4473 33.6818C25.8106 31.8358 23.7767 29.8241 23.213 27.547C22.804 25.8778 23.224 24.1645 24.462 22.4401C27.6345 18.0186 34.4768 20.351 36.7318 21.1247L35.9469 23.4239C31.0501 21.7548 27.8556 21.8985 26.4407 23.855C25.6227 24.9936 25.3464 26.0105 25.5785 26.9722C25.9433 28.4865 27.6676 30.0562 30.5527 31.5153L29.4473 33.6818Z" fill="#0262F2"></path>
+                              <path d="M29.7126 45.3888C27.0929 45.3888 24.4953 44.5045 23.2683 44.0845L24.0531 41.7853C28.9499 43.4544 32.1445 43.3107 33.5594 41.3542C34.3774 40.2156 34.6537 39.1987 34.4215 38.237C34.0568 36.7226 32.3324 35.153 29.4473 33.6939L30.5527 31.5273C34.1894 33.3733 36.2233 35.3741 36.7871 37.6623C37.1961 39.3314 36.776 41.0447 35.538 42.7691C34.101 44.7809 31.9013 45.3999 29.7126 45.3999V45.3888Z" fill="#0262F2"></path>
+                              <path d="M31.216 15.418H28.7841V21.0443H31.216V15.418Z" fill="#0262F2"></path>
+                              <path d="M31.216 44.1602H28.7841V49.7865H31.216V44.1602Z" fill="#0262F2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="margin-bottom margin-medium">
+                        <h3 class="text-size-large" style="color:white; font-weight:bold;">Industry-leading unit economics</h3>
+                    </div>
+                    <p class="text-size-medium">Continuously optimizing across inference and training to keep improving performance, delivering better total cost of ownership.</p>
+                </div>
+            </li>
+            <li>
+                <div class="clusters_list-item">
+                    <div class="margin-bottom margin-medium">
+                        <div class="icon-embed-xlarge w-embed">
+                             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0262F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                             </svg>
+                        </div>
+                    </div>
+                    <div class="margin-bottom margin-medium">
+                        <h3 class="text-size-large" style="color:white; font-weight:bold;">Frontier AI systems research</h3>
+                    </div>
+                    <p class="text-size-medium">Proven infra and research teams ensure the latest models, hardware, and techniques are made available on day 1.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="full-stack-container">
+        <h2 class="heading-section"><span>Full stack</span> development for AI‑native apps</h2>
+        <div class="stack-grid">
+            <div class="stack-card">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <h4>Model Library</h4>
+                <p>Evaluate & build with open-source models.</p>
+            </div>
+            <div class="stack-card">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <h4>Inference</h4>
+                <p>Fastest tokens per second.</p>
+            </div>
+            <div class="stack-card" onclick="document.getElementById('ai-generator').scrollIntoView({behavior: 'smooth'});" style="border-color: var(--accent);">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                <h4 style="color: var(--accent);">Fine-Tuning</h4>
+                <p>Try the Process Generator Tool.</p>
+            </div>
+            <div class="stack-card">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <h4>Pre-Training</h4>
+                <p>Custom training on your data.</p>
+            </div>
+            <div class="stack-card">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                </svg>
+                <h4>GPU Clusters</h4>
+                <p>H100 & 3090 Ti Clusters.</p>
+            </div>
+            <a href="https://www.hubs.com/manufacture/?technology=cnc-machining" target="_blank" class="stack-card">
+                <svg class="stack-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                <h4>Prototype to Production</h4>
+                <p>Instant quoting & parts in 1 day.</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="models-section">
+        <h2 class="heading-section">Model Library</h2>
+        <p style="color: var(--text-secondary);">Evaluate and build with specialized models for chat, images, videos, code, and more.</p>
+        <div class="models-grid">
+            <div class="model-tag">Chat Kimi K2 Thinking <span class="new">New</span></div>
+            <div class="model-tag">Qwen3 235B Instruct <span class="arrow">→</span></div>
+            <div class="model-tag">DeepSeek-V3.1 <span class="new">New</span></div>
+            <div class="model-tag">Sora 2 Pro (Video) <span class="new">New</span></div>
+            <div class="model-tag">Apriel-1.6-15B-Thinker <span class="arrow">→</span></div>
+            <div class="model-tag">Nano Banana Pro (Image) <span class="new">New</span></div>
+        </div>
+    </div>
+
+    <div class="research-section">
+        <h2 class="heading-section">Industry leading <span>AI research</span> and open-source contributions</h2>
+        <div class="research-grid">
+            <div class="research-card">FlashAttention</div>
+            <div class="research-card">Mixture of Agents</div>
+            <div class="research-card">Dragonfly</div>
+            <div class="research-card">Red Pajama Datasets</div>
+            <div class="research-card">DeepCoder</div>
+            <div class="research-card">Open Deep Research</div>
+            <div class="research-card">Flash Decoding</div>
+            <div class="research-card">Open Data Scientist Agent</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="products.html">Model Library</a></li>
+                    <li><a href="products.html">Inference</a></li>
+                    <li><a href="products.html">Fine-Tuning</a></li>
+                    <li><a href="products.html">GPU Clusters</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="solutions.html">Manufacturing</a></li>
+                    <li><a href="solutions.html">Healthcare</a></li>
+                    <li><a href="solutions.html">Automotive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Trust Center</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-brand-group">
+                <div class="logo">noval<span>.ai</span></div>
+                <p>The AI Cloud for Manufacturing.</p>
+                <div class="copyright">&copy; 2025 Noval AI. San Francisco, CA 94114.</div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Consent Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+    <div style="height: 60px;"></div>
+
+</body>
+</html>

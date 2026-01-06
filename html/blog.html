@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog - Noval AI</title>
+    <link rel="icon" href="img/OIP.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+
+        /* Hero */
+        .blog-hero {
+            padding: 100px 20px 60px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Categories Nav */
+        .blog-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        .cat-link {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .cat-link:hover, .cat-link.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border-color: var(--border);
+        }
+
+        /* Featured Post (Big Card) */
+        .featured-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        .featured-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .featured-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        
+        .featured-img {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .featured-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 50% 50%, rgba(2, 98, 242, 0.1) 0%, transparent 50%);
+        }
+        
+        .featured-content {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .meta-tag {
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .featured-title { font-size: 2.5rem; color: white; margin: 0 0 20px 0; line-height: 1.2; }
+        .featured-excerpt { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; }
+
+        @media (max-width: 900px) {
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-img { min-height: 250px; }
+            .featured-content { padding: 40px; }
+            .featured-title { font-size: 2rem; }
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            padding: 0 20px;
+        }
+        
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            background: #1a1a20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-date { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px; }
+        .card-title { font-size: 1.4rem; color: white; margin: 0 0 10px 0; line-height: 1.4; }
+        .card-text { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        
+        .read-more {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .blog-card:hover .read-more { color: var(--accent); }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(2, 98, 242, 0.05) 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .news-input-group {
+            display: flex;
+            max-width: 500px;
+            margin: 30px auto 0;
+            gap: 10px;
+        }
+        .news-input {
+            flex-grow: 1;
+            background: #0b0b0f;
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+        .news-input:focus { outline: none; border-color: var(--accent); }
+
+        /* Icons */
+        .post-icon { width: 60px; height: 60px; color: var(--accent); opacity: 0.8; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="logo">noval<span>.ai</span></a>
+        <div class="nav-links">
+            <a href="products.html">Products</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="research.html">Research</a>
+            <a href="price.html">Pricing</a>
+        </div>
+    </nav>
+
+    <div class="blog-hero">
+        <h1 class="heading-hero">Insights & Updates</h1>
+        <p class="text-size-large">
+            Engineering deep dives, product announcements, and manufacturing intelligence news from the Noval AI team.
+        </p>
+    </div>
+
+    <div class="blog-nav">
+        <a href="#" class="cat-link active">All Posts</a>
+        <a href="#" class="cat-link">Engineering</a>
+        <a href="#" class="cat-link">Product</a>
+        <a href="#" class="cat-link">Company</a>
+        <a href="#" class="cat-link">Case Studies</a>
+    </div>
+
+    <div class="featured-section">
+        <a href="#" style="text-decoration:none;">
+            <div class="featured-card">
+                <div class="featured-img">
+                    <svg class="post-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div class="featured-content">
+                    <div class="meta-tag">Engineering</div>
+                    <h2 class="featured-title">Fine-Tuning Qwen-VL for Microscopic Defect Detection</h2>
+                    <p class="featured-excerpt">
+                        How we optimized 4-bit quantization to run high-resolution vision models on edge hardware with < 50ms latency.
+                    </p>
+                    <div class="read-more">Read Article &rarr;</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="blog-grid">
+        
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Oct 12, 2025 • Product</div>
+                <h3 class="card-title">Introducing H100 Clusters for Enterprise</h3>
+                <p class="card-text">
+                    We've expanded our compute fleet. Dedicated H100 nodes are now available for heavy training workloads.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Sep 28, 2025 • Case Study</div>
+                <h3 class="card-title">Reducing False Positives by 40%</h3>
+                <p class="card-text">
+                    How a leading automotive manufacturer used Noval AI to improve their paint inspection workflow.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Sep 15, 2025 • Update</div>
+                <h3 class="card-title">API Rate Limits Increased</h3>
+                <p class="card-text">
+                    We've doubled the TPM (Tokens Per Minute) limits for all Production tier customers effective immediately.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Aug 30, 2025 • Engineering</div>
+                <h3 class="card-title">FlashDecoding Integration</h3>
+                <p class="card-text">
+                    Implementing the latest research to speed up long-context inference for technical manual analysis.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Aug 10, 2025 • Product</div>
+                <h3 class="card-title">Private Cloud Deployment</h3>
+                <p class="card-text">
+                    New options for deploying Noval AI entirely within your own VPC or on-premise hardware.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+        <a href="#" class="blog-card" style="text-decoration:none;">
+            <div class="card-img-top">
+                <svg class="post-icon" style="width:40px; height:40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-date">Jul 22, 2025 • Engineering</div>
+                <h3 class="card-title">Benchmarking Llama 3 on A100s</h3>
+                <p class="card-text">
+                    A deep dive into performance metrics and cost efficiency for fine-tuning large language models.
+                </p>
+                <div class="read-more">Read More &rarr;</div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="newsletter-section">
+        <h2 style="font-size:2rem; margin-bottom:10px; color:white;">Stay Updated</h2>
+        <p style="color:var(--text-secondary);">Get the latest manufacturing AI insights delivered to your inbox.</p>
+        <div class="news-input-group">
+            <input type="email" class="news-input" placeholder="Enter your email" required>
+            <button class="btn btn-primary" style="padding: 12px 24px; font-size:1rem; border-radius:8px; border:none; cursor:pointer; font-weight:600;">Subscribe</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="products.html">Model Library</a></li>
+                    <li><a href="products.html">Inference</a></li>
+                    <li><a href="products.html">Fine-Tuning</a></li>
+                    <li><a href="products.html">GPU Clusters</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="solutions.html">Manufacturing</a></li>
+                    <li><a href="solutions.html">Healthcare</a></li>
+                    <li><a href="solutions.html">Automotive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Trust Center</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-brand-group">
+                <a href="index.html" class="logo" style="text-decoration:none;">noval<span>.ai</span></a>
+                <p>The AI Cloud for Manufacturing.</p>
+                <div class="copyright">&copy; 2025 Noval AI. San Francisco, CA 94114.</div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Consent Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
