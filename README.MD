@@ -4,7 +4,7 @@ emoji: 🏭
 colorFrom: blue
 colorTo: gray
 sdk: gradio
-sdk_version: 4.0.0
+sdk_version: "4.0.0"
 app_file: app.py
 pinned: false
 license: mit
@@ -35,7 +35,7 @@ The project combines a modern marketing website (FastAPI + HTML/CSS) with a powe
 * **Core AI:** [PyTorch](https://pytorch.org/), [Transformers](https://huggingface.co/docs/transformers/index), [PEFT](https://github.com/huggingface/peft)
 * **Backend:** [FastAPI](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/)
 * **Frontend UI:** [Gradio](https://gradio.app/), HTML5, CSS3
-* **Deployment:** Hugging Face Spaces (Docker/Gradio SDK)
+* **Deployment:** Hugging Face Spaces (Gradio SDK)
 
 ---
 
@@ -46,7 +46,8 @@ Noval-AI/
 │
 ├── app.py                 # Main application entry point (FastAPI + Gradio)
 │
-├── model/                 # Fine-tuned model adapters (ensure large files are ignored in git)
+├── model/                 # Fine-tuned model adapters
+│   └── sft/               # (Note: Large weights loaded from external repo in production)
 │
 ├── html/                  # Static Website Pages
 │   ├── index.html         # Landing Page
