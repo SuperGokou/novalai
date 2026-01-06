@@ -22,24 +22,49 @@ ADAPTER_PATH = "gokouming/noval-adapter"
 # Get Hugging Face token from environment (for private models)
 HF_TOKEN = os.environ.get("HF_TOKEN", None)
 
-# --- 2. LOAD MODEL ---
+# --- 2. GLOBAL VARIABLES (Model loaded lazily) ---
 print("--- STARTING APP ---")
-try:
-    model = Qwen2VLForConditionalGeneration.from_pretrained(
-        BASE_MODEL_PATH,
-        dtype=torch.bfloat16,
-        device_map="auto",  # Auto device placement for Railway
-        trust_remote_code=True,
-        token=HF_TOKEN
-    )
+model = None
+processor = None
+
+def load_model():
+    """Load model on first use"""
+    global model, processor
+    
+    if model is not None:
+        return model, processor
+    
+    print(f"Loading base model: {BASE_MODEL_PATH}")
+    print(f"Loading adapter: {ADAPTER_PATH}")
+    
     try:
-        model = PeftModel.from_pretrained(model, ADAPTER_PATH, token=HF_TOKEN)
-        print("✅ Adapter loaded.")
-    except:
-        print("⚠️ Adapter not found, using base model.")
-    processor = AutoProcessor.from_pretrained(BASE_MODEL_PATH, trust_remote_code=True, token=HF_TOKEN)
-except Exception as e:
-    print(f"❌ Model Error: {e}")
+        model = Qwen2VLForConditionalGeneration.from_pretrained(
+            BASE_MODEL_PATH,
+            torch_dtype=torch.bfloat16,
+            device_map="auto",
+            trust_remote_code=True,
+            token=HF_TOKEN
+        )
+        print("✅ Base model loaded.")
+        
+        try:
+            model = PeftModel.from_pretrained(model, ADAPTER_PATH, token=HF_TOKEN)
+            print("✅ Adapter loaded.")
+        except Exception as e:
+            print(f"⚠️ Adapter not found: {e}, using base model.")
+        
+        processor = AutoProcessor.from_pretrained(
+            BASE_MODEL_PATH, 
+            trust_remote_code=True, 
+            token=HF_TOKEN
+        )
+        print("✅ Processor loaded.")
+        
+        return model, processor
+            
+    except Exception as e:
+        print(f"❌ Model Loading Error: {e}")
+        raise
 
 
 # --- 3. PDF GENERATION ---
@@ -92,27 +117,36 @@ def create_pdf_report(image_path, process_text):
 
 # --- 4. AI INFERENCE ---
 def analyze_and_generate_report(image_path):
-    if not image_path: return "Please upload an image.", None
+    if not image_path: 
+        return "Please upload an image.", None
 
-    messages = [
-        {
-            "role": "user",
-            "content": [
-                {"type": "image", "image": image_path},
-                {"type": "text", "text": "Please analyze the product image and generate a detailed step-by-step manufacturing process workflow in English."}
-            ]
-        }
-    ]
+    try:
+        # Load model on first use
+        model, processor = load_model()
+        
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "image", "image": image_path},
+                    {"type": "text", "text": "Please analyze the product image and generate a detailed step-by-step manufacturing process workflow in English."}
+                ]
+            }
+        ]
 
-    text_input = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-    image_inputs, video_inputs = process_vision_info(messages)
-    inputs = processor(text=[text_input], images=image_inputs, videos=video_inputs, padding=True,
-                       return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
-    generated_ids = model.generate(**inputs, max_new_tokens=512)
-    generated_ids_trimmed = [out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)]
-    output_text = processor.batch_decode(generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
-    pdf_path = create_pdf_report(image_path, output_text)
-    return "", pdf_path
+        text_input = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        image_inputs, video_inputs = process_vision_info(messages)
+        inputs = processor(text=[text_input], images=image_inputs, videos=video_inputs, padding=True,
+                           return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
+        generated_ids = model.generate(**inputs, max_new_tokens=512)
+        generated_ids_trimmed = [out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)]
+        output_text = processor.batch_decode(generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
+        pdf_path = create_pdf_report(image_path, output_text)
+        return "", pdf_path
+    except Exception as e:
+        error_msg = f"Error during analysis: {str(e)}"
+        print(f"❌ {error_msg}")
+        return error_msg, None
 
 
 # --- 5. HELPER: FIX PATHS IN HTML ---
