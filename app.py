@@ -192,18 +192,59 @@ def prepare_html(filename):
 
 # --- 6. GRADIO INTERFACE ---
 custom_css = """
-footer { visibility: hidden !important; }
-.gradio-container { 
+/* Force dark theme on everything */
+body, html {
+    background-color: #0b0b0f !important;
+}
+
+footer { 
+    visibility: hidden !important; 
+}
+
+.gradio-container,
+.gradio-container *,
+.contain,
+.prose,
+div[class*="block"],
+div[class*="container"] { 
     background-color: #0b0b0f !important; 
+}
+
+.gradio-container { 
     margin: 0 !important; 
     max-width: 100% !important; 
-    min-height: 100vh; 
+    min-height: 100vh !important;
 }
+
 #tool-container { 
     max-width: 1200px; 
     margin: 0 auto; 
     padding: 40px 20px; 
+    background-color: #0b0b0f !important;
 }
+
+/* Upload area - make it dark */
+.upload-container,
+div[data-testid="image"],
+.image-container,
+.drop-area {
+    background-color: #15151a !important;
+    border: 2px dashed #27272a !important;
+}
+
+/* Labels and text */
+label, label span, .label, h1, h2, h3, p { 
+    color: #9ca3af !important; 
+    font-weight: bold; 
+}
+
+h1, h2 { 
+    color: white !important; 
+    font-family: sans-serif; 
+}
+
+/* Fine-tuning parameters box */
+#analysis-output,
 #analysis-output textarea {
     background-color: #e5e7eb !important; 
     color: #555555 !important; 
@@ -217,61 +258,76 @@ footer { visibility: hidden !important; }
     text-align: center !important; 
     padding-top: 120px !important; 
 }
-label span { 
-    color: #9ca3af !important; 
-    font-weight: bold; 
-}
-.tool-header { 
-    text-align: center; 
-    margin-bottom: 40px; 
-    padding-bottom: 20px; 
-    border-bottom: 1px solid #27272a; 
-}
-.tool-logo-text { 
-    font-size: 2.5rem; 
-    font-weight: 700; 
-    color: white; 
-    letter-spacing: -1px; 
-}
-.tool-logo-text span { 
-    color: #0262F2; 
-}
-.tool-tagline { 
-    color: #9ca3af; 
-    font-size: 1rem; 
-    margin-top: 5px; 
-}
-button.primary { 
+
+/* Button styling */
+button,
+.primary,
+button[variant="primary"] { 
     background-color: #0262F2 !important; 
     color: white !important; 
     border: none !important; 
     font-weight: 600 !important; 
 }
-h1, h2 { 
-    color: white !important; 
-    font-family: sans-serif; 
+
+button:hover {
+    opacity: 0.9 !important;
 }
-/* Force dark background on everything */
-.gradio-container, .gradio-container * {
+
+/* Header */
+.tool-header { 
+    text-align: center; 
+    margin-bottom: 40px; 
+    padding-bottom: 20px; 
+    border-bottom: 1px solid #27272a; 
     background-color: #0b0b0f !important;
 }
-/* But keep interactive elements readable */
-input, textarea, button, select {
+
+.tool-logo-text { 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    color: white !important; 
+    letter-spacing: -1px; 
+}
+
+.tool-logo-text span { 
+    color: #0262F2 !important; 
+}
+
+.tool-tagline { 
+    color: #9ca3af !important; 
+    font-size: 1rem; 
+    margin-top: 5px; 
+}
+
+/* Input fields */
+input, textarea, select {
     background-color: #15151a !important;
     color: white !important;
-    border-color: #27272a !important;
+    border: 1px solid #27272a !important;
 }
-/* Fix image upload area */
-.upload-container {
+
+/* File download area */
+.file-preview,
+.file-upload {
     background-color: #15151a !important;
+    border: 1px solid #27272a !important;
 }
 """
 
 with gr.Blocks(title="Noval AI Tool") as demo:
     # Inject CSS via HTML (Gradio 6 compatible)
-    gr.HTML(f"<style>{custom_css}</style>")
+    gr.HTML(f"""
+    <style>{custom_css}</style>
+    <script>
+        // Force dark mode on load
+        document.addEventListener('DOMContentLoaded', function() {{
+            document.body.style.backgroundColor = '#0b0b0f';
+            document.documentElement.style.backgroundColor = '#0b0b0f';
+        }});
+    </script>
+    """)
     
-    gr.HTML('<div style="padding: 20px;"><a href="/" style="color: #9ca3af; text-decoration: none; font-family: sans-serif;">&larr; Back to Website</a></div>')
+    gr.HTML('<div style="padding: 20px; background-color: #0b0b0f;"><a href="/" style="color: #9ca3af; text-decoration: none; font-family: sans-serif;">&larr; Back to Website</a></div>')
 
     with gr.Group(elem_id="tool-container"):
         gr.HTML("""
