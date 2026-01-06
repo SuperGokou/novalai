@@ -8,6 +8,12 @@ sdk_version: "4.0.0"
 app_file: app.py
 pinned: false
 license: mit
+short_description: AI-powered manufacturing process report generator.
+python_version: "3.10"
+fullWidth: true
+models:
+  - Qwen/Qwen2.5-VL-7B-Instruct
+  - gokouming/noval-adapter
 ---
 
 # 🏭 Noval AI - Manufacturing Intelligence Platform
@@ -39,22 +45,13 @@ The project combines a modern marketing website (FastAPI + HTML/CSS) with a powe
 
 ---
 
-## 📂 Project Structure
+## ⚡ Local Installation
 
-```text
-Noval-AI/
-│
-├── app.py                 # Main application entry point (FastAPI + Gradio)
-│
-├── model/                 # Fine-tuned model adapters
-│   └── sft/               # (Note: Large weights loaded from external repo in production)
-│
-├── html/                  # Static Website Pages
-│   ├── index.html         # Landing Page
-│   ├── price.html         # Pricing & Payment Integration
-│   └── ...                # Other pages
-│
-├── css/
-│   └── style.css          # Global Dark Theme Styling
-│
-└── requirements.txt       # Python dependencies
+### Prerequisites
+* **GPU:** NVIDIA RTX 3090 Ti (24GB VRAM) or equivalent recommended.
+* **Python:** 3.10+
+
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/SuperGokou/noval-ai.git](https://github.com/SuperGokou/noval-ai.git)
+cd noval-ai
