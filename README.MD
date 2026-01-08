@@ -20,6 +20,8 @@ models:
 
 ![Noval AI Banner](img/OIP.png)
 
+### 🌐 [**Click here to visit the Live Demo (Railway)**](https://novalai-noval-ai.up.railway.app)
+
 **Noval AI** is an AI-native cloud platform designed for the manufacturing industry. It leverages state-of-the-art **Vision-Language Models (Qwen2.5-VL)** to analyze product images and automatically generate technical manufacturing process reports.
 
 The project combines a modern marketing website (FastAPI + HTML/CSS) with a powerful interactive AI tool (Gradio).
@@ -36,12 +38,21 @@ The project combines a modern marketing website (FastAPI + HTML/CSS) with a powe
 
 ---
 
+## ☁️ Live Deployment
+
+The application is deployed and accessible via Railway:
+
+* **Live URL:** [https://novalai-noval-ai.up.railway.app](https://novalai-noval-ai.up.railway.app)
+* **Hugging Face Space:** [https://huggingface.co/spaces/gokouming/noval-ai](https://huggingface.co/spaces/gokouming/noval-ai)
+
+---
+
 ## 🛠️ Tech Stack
 
 * **Core AI:** [PyTorch](https://pytorch.org/), [Transformers](https://huggingface.co/docs/transformers/index), [PEFT](https://github.com/huggingface/peft)
 * **Backend:** [FastAPI](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/)
 * **Frontend UI:** [Gradio](https://gradio.app/), HTML5, CSS3
-* **Deployment:** Hugging Face Spaces (Gradio SDK)
+* **Deployment:** Hugging Face Spaces (Gradio SDK) & Railway
 
 ---
 
